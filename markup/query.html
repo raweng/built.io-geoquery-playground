@@ -1,0 +1,42 @@
+<div class="tabs">
+  <span class="pull-right status"><b>{{places.length | multiples}}</b></span>
+  <ul class="nav nav-tabs">
+    <li>
+      <a href="#/">Create</a>
+    </li>
+    <li class="active">
+      <a href="#/query">Query</a>
+    </li>
+  </ul>
+</div>
+
+<div class="clearfix">
+  <div class="pull-left">
+    <b>Selected Shape:</b> {{currentShape.description || 'None selected'}}
+    <p>
+      <b>Attributes:</b> {{currentShape.attributes || 'None'}}
+    </p>
+  </div>
+
+  <div class="pull-right">
+    <button class="btn" ng-click="delete()" ng-show="currentShape">Delete Shape</button>
+    <button class="btn" ng-click="query()">Execute Query</button>
+    <button class="btn" ng-click="show()">Show Query</button>
+    <button class="btn" ng-click="clear()">Clear Map</button>
+  </div>
+</div>
+
+<div id="map-canvas" gmap="query" class="map"></div>
+
+<div class="modal hide fade" dialog>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Query</h3>
+  </div>
+  <div class="modal-body">
+    <pre>{{code}}</pre>
+  </div>
+  <div class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-primary">Close</button>
+  </div>
+</div>
