@@ -1,0 +1,39 @@
+<!doctype html>
+<html ng-app="geoplay">
+  <head>
+    <title>
+      GeoQuery Playground
+    </title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/builtio.js"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing"></script>
+
+    <script type="text/javascript" src="js/gmap.js"></script>
+    <script type="text/javascript" src="js/query.js"></script>
+    <script type="text/javascript" src="js/landing.js"></script>
+    <script type="text/javascript" src="js/geoplay.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">GeoQuery Playground</a>
+        <span ng-show="show" loader><img class="top" src="img/loader.gif"></span>
+        <a href="http://built.io" target="_blank" class="pull-right"><img class="top" src="img/built-logo.png"></a>
+      </div>
+    </div>
+
+
+    <div ng-view class="container"></div>
+  </body>
+</html>

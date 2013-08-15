@@ -1,0 +1,27 @@
+<div class="tabs">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#/">Create</a>
+    </li>
+    <li>
+      <a href="#/query">Query</a>
+    </li>
+  </ul>
+
+</div>
+
+<div class="clearfix">
+  <div class="pull-left">
+    <b>Name:</b> {{currentSelection.get('name') || 'Not selected'}}
+    <p>
+      <b>Lat:</b> {{currentSelection.get('__loc')[1] || '0.0'}}
+      <b>Lng:</b> {{currentSelection.get('__loc')[0] || '0.0'}}
+    </p>
+  </div>
+
+  <div class="pull-right" ng-show="currentSelection">
+    <button class="btn" ng-click="deleteCurrent()">Delete</button>
+  </div>
+</div>
+
+<div id="map-canvas" gmap="see" class="map"></div>
