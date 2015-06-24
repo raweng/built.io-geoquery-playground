@@ -16,49 +16,47 @@ function QueryCtrl($scope, loader, $rootScope) {
   }
 
   var queryBuilder = function() {
-    var query = new Built.Query('places');
+    var query = BuiltApp.Class('places').Query();
 
     var queries = [];
+
     // get all the near queries
     $scope.nearShapes.map(function(shape) {
-      var q = new Built.Query('places');
-      q.nearLocation(longLat(shape.center), shape.radius);
-      queries.push(q);
+      var queryNearLocation = query.nearLocation(longLat(shape.center), shape.radius);
+      queries.push(queryNearLocation);
     });
 
     $scope.withinShapes.map(function(shape) {
-      var q = new Built.Query('places');
       var coords = shape.getPath().getArray().map(function(l) {return longLat(l)});
-      q.withInLocation(coords);
-      queries.push(q);
+      var queryWithinLocation = query.withinLocation(coords);
+      queries.push(queryWithinLocation);
     });
-    
-    query.or.apply(this, queries);
-    return query;
+
+    var orQuery = query.or(queries);
+    return orQuery;
   }
 
   $scope.show = function() {
-    var query = queryBuilder().toJSON();
+    var query = queryBuilder().data;
     var code = 'https://api.built.io/classes/places/objects?query=' + 
       JSON.stringify(query.query||{}, undefined, 2);
-
     $rootScope.$broadcast('showDialog', code);
   }
 
   $scope.query = function() {
     var query = queryBuilder();
-    var check = query.toJSON().query;
-    if (!check || check["$or"].length == 0)
+    var check = query.data.query;
+    if (!check || check["$or"].length == 0){
       return $scope.places = [];
-
+    }
     loader.sl();
-    query.exec().
-    onSuccess(function(data) {
-      loader.hl();
-      $sa($scope, function() {
-        $scope.places = data;
-      })
-    })
+    query.exec()
+      .then(function(data) {
+        loader.hl();
+        $sa($scope, function() {
+          $scope.places = data;
+        })
+    });
   }
 
   $scope.delete = function() {

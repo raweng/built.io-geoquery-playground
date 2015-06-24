@@ -17,13 +17,13 @@ var _gmap_directive = function() {
 
             google.maps.event.addListener(marker, 'dragend', function(e) {
               // set the new location
-              d.setLocation(longLat(e.latLng));
-              d.save()
-              .onSuccess(function(data) {
-                $sa(scope, function() {
-                  scope.currentSelection = d;
-                });
-              });
+              d.setLocation(longLat(e.latLng))
+                .save()
+                  .then(function(data) {
+                    $sa(scope, function() {
+                      scope.currentSelection = d;
+                    });
+                  });
             });
 
             google.maps.event.addListener(marker, 'click', function(e) {
