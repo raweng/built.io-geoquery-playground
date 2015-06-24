@@ -6,4 +6,4 @@ Its created using AngularJS, Bootstrap and the built.io Javascript SDK.
 
 It's hosted here:
 
-http://raweng.github.io/built.io-GeoQuery-Playground
+http://raweng.github.io/built.io-geoquery-playground
