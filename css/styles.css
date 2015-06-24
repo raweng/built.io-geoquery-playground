@@ -7,5 +7,10 @@ div.map img {
  max-width:none;
 }
 
-.top { padding-top: 4px; }
+.top { padding-top: 15px; }
 .status { font-size: large; padding-top: 8px; }
+
+.logo{
+	height: 20px;
+	margin-top: 10px;
+}

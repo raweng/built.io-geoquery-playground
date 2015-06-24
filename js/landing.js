@@ -3,9 +3,9 @@ function LandingCtrl($scope, $rootScope, loader) {
 
   function getPlaces() {
     loader.sl();
-    var query = new Built.Query('places');
-    query.exec().
-    onSuccess(function(data) {
+    var query = BuiltApp.Class('places').Query();
+    query.exec()
+    .then(function(data) {
       loader.hl();
       $sa($scope, function() {
         // remove old markers
@@ -18,23 +18,22 @@ function LandingCtrl($scope, $rootScope, loader) {
       })
     });
   }
-
   getPlaces();
 
   $scope.deleteCurrent = function() {
+    console.log('Current Selection ', $scope.currentSelection)
     if (!$scope.currentSelection)
       return alert('None Selected!');
 
     // removing the marker
     $scope.currentSelection.marker.setMap(null);
-    $scope.currentSelection.destroy().
-    onSuccess(function() {
-      getPlaces();
-      $scope.currentSelection = null;
-    }).
-    onError(function() {
-      alert('Couldn\'t delete that!');
-    });
+    $scope.currentSelection.delete()
+      .then(function() {
+        getPlaces();
+        $scope.currentSelection = null;
+      }, function(){
+        alert('Couldn\'t delete that!');
+      })
     $scope.currentSelection = null;
   }
 
@@ -45,14 +44,13 @@ function LandingCtrl($scope, $rootScope, loader) {
       return;
 
     loader.sl();
-    var Cls = Built.Object.extend('places');
-    var obj = new Cls();
-    obj.set('name', name);
-    obj.setLocation(location);
-    obj.save().
-    onSuccess(function() {
-      loader.hl();
-      getPlaces();
-    });
+    var Cls = BuiltApp.Class('places').Object;
+    var obj = Cls();
+        obj = obj.set('name', name).setLocation(location);
+        obj.save()
+          .then(function(){
+            loader.hl();
+            getPlaces();
+          });
   }
 }

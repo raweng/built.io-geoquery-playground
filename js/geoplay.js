@@ -63,7 +63,7 @@ directive('dialog', function() {
 });
 
 // initialize built
-Built.initialize('blta660637a0d9a2f8c', 'geop');
+var BuiltApp = Built.App('blta660637a0d9a2f8c');
 
 // the safe apply function
 function $sa(scope, fn) {
@@ -76,5 +76,5 @@ function latLong(l) {
 }
 
 function longLat(l) {
-  return new Built.Location([l.lng(), l.lat()]);
+  return Built.Location(l.lng(), l.lat());
 }
